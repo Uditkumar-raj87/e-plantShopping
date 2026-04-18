@@ -1,13 +1,17 @@
 # Paradise Nursery Shopping Application
 
-Paradise Nursery is a React + Redux shopping cart application for an online plant shop.
+Paradise Nursery is a premium React + Redux shopping platform for an online plant shop with authentication, checkout, and order tracking.
 
 ## Features
 
 - Landing page with company branding and a Get Started button.
 - Product listing with multiple categories of houseplants.
 - Add to Cart functionality with dynamic cart count in the navbar.
-- Shopping cart page with quantity controls, remove item, and checkout prompt.
+- Shopping cart page with quantity controls and item removal.
+- Auth system with Register/Login and protected checkout routes.
+- Checkout flow with shipping form, payment method selection, and order confirmation.
+- Backend API for authentication, payment intent creation, and persistent order history.
+- 3D animated background for premium visual experience.
 
 ## Tech Stack
 
@@ -15,6 +19,10 @@ Paradise Nursery is a React + Redux shopping cart application for an online plan
 - Redux Toolkit
 - React Router
 - Vite
+- Express
+- JWT Auth
+- Stripe PaymentIntent API (optional key)
+- React Three Fiber / Drei / Three.js
 
 ## Run Locally
 
@@ -24,14 +32,43 @@ Paradise Nursery is a React + Redux shopping cart application for an online plan
 npm install
 ```
 
-2. Start development server:
+2. Create environment file:
 
 ```bash
-npm run dev
+cp .env.example .env
 ```
 
-3. Build for production:
+3. Start frontend and backend together:
+
+```bash
+npm run dev:full
+```
+
+4. Frontend: `http://localhost:5173` (or next available port)
+
+5. Backend API: `http://localhost:4000`
+
+## Auth + Orders
+
+- Register/Login from `/auth`
+- Protected pages:
+	- `/checkout`
+	- `/orders`
+
+## Payment Notes
+
+- Card payments call `/api/payment/create-intent`.
+- If `STRIPE_SECRET_KEY` is set, a real Stripe PaymentIntent is created.
+- Without Stripe key, card payment uses a safe mock response for local development.
+
+## Build Frontend
 
 ```bash
 npm run build
+```
+
+## Start Backend Only
+
+```bash
+npm run start:api
 ```

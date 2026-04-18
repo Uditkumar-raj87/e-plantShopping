@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./Navbar";
+import { api } from "../lib/api";
 import {
   clearCart,
   selectCartItems,
@@ -66,7 +67,7 @@ export default function Checkout() {
     return "";
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (cartItems.length === 0) {
@@ -80,16 +81,39 @@ export default function Checkout() {
       return;
     }
 
-    setError("");
-    setIsProcessing(true);
+    try {
+      setError("");
+      setIsProcessing(true);
 
-    const orderId = `PN-${Math.floor(100000 + Math.random() * 900000)}`;
+      await api.createPaymentIntent({
+        amount: total,
+        currency: "usd",
+        paymentMethod: form.paymentMethod
+      });
 
-    setTimeout(() => {
+      const orderResponse = await api.createOrder({
+        items: cartItems,
+        totals: {
+          subtotal,
+          shipping,
+          total,
+          totalItems
+        },
+        shipping: {
+          fullName: form.fullName,
+          email: form.email,
+          address: form.address,
+          city: form.city,
+          zipCode: form.zipCode,
+          country: form.country
+        },
+        paymentMethod: form.paymentMethod
+      });
+
       dispatch(clearCart());
       navigate("/confirmation", {
         state: {
-          orderId,
+          orderId: `PN-${String(orderResponse.order.id).padStart(6, "0")}`,
           total,
           totalItems,
           paymentMethod: form.paymentMethod,
@@ -98,7 +122,11 @@ export default function Checkout() {
           placedAt: new Date().toISOString()
         }
       });
-    }, 1200);
+    } catch (err) {
+      setError(err.message || "Checkout failed. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (

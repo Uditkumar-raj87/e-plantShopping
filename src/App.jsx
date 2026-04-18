@@ -1,12 +1,29 @@
 import { Suspense, lazy, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import AboutUs from "./components/AboutUs";
 import ProductList from "./components/ProductList";
 import CartItem from "./components/CartItem";
 import Checkout from "./components/Checkout";
 import OrderConfirmation from "./components/OrderConfirmation";
+import AuthPage from "./components/AuthPage";
+import OrderHistory from "./components/OrderHistory";
+import { useAuth } from "./lib/AuthContext";
 
 const BackgroundScene = lazy(() => import("./components/BackgroundScene"));
+
+function ProtectedRoute({ children }) {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  return children;
+}
 
 function LandingPage() {
   const [showProductList, setShowProductList] = useState(false);
@@ -67,8 +84,31 @@ export default function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/plants" element={<ProductList />} />
         <Route path="/cart" element={<CartItem />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/confirmation" element={<OrderConfirmation />} />
+        <Route path="/auth" element={<AuthPage />} />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <OrderHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/confirmation"
+          element={
+            <ProtectedRoute>
+              <OrderConfirmation />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );

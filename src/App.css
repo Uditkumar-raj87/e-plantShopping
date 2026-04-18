@@ -114,6 +114,13 @@ a {
   transition: all 0.22s ease;
 }
 
+.nav-button {
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+}
+
 .nav-link:hover,
 .cart-link:hover {
   transform: translateY(-1px);
@@ -292,7 +299,9 @@ h1 {
 .product-page,
 .cart-page,
 .checkout-page,
-.confirmation-page {
+.confirmation-page,
+.auth-page,
+.orders-page {
   position: relative;
   z-index: 2;
   max-width: 1100px;
@@ -648,6 +657,78 @@ h1 {
   display: flex;
   gap: 10px;
   margin-top: 14px;
+}
+
+.auth-page {
+  min-height: calc(100vh - 120px);
+  display: grid;
+  place-items: center;
+}
+
+.auth-card,
+.order-card {
+  width: min(520px, 100%);
+  background: rgba(255, 255, 250, 0.9);
+  border: 1px solid rgba(33, 89, 75, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(14, 43, 35, 0.12);
+  padding: 24px;
+}
+
+.auth-card h2 {
+  margin: 4px 0;
+  font-family: "Fraunces", serif;
+}
+
+.auth-form {
+  display: grid;
+  gap: 10px;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.auth-form input {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(33, 89, 75, 0.2);
+  background: #fff;
+  padding: 0 12px;
+}
+
+.text-link-button {
+  margin-top: 10px;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.orders-list {
+  display: grid;
+  gap: 14px;
+}
+
+.order-card {
+  width: 100%;
+}
+
+.order-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.order-head h3 {
+  margin: 0;
+  font-family: "Fraunces", serif;
 }
 
 button:focus-visible,

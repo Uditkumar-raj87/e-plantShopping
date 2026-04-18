@@ -1,15 +1,19 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 
 export default function OrderConfirmation() {
   const { state } = useLocation();
 
-  const orderId = state?.orderId ?? "PN-000000";
-  const total = state?.total ?? 0;
-  const totalItems = state?.totalItems ?? 0;
-  const paymentMethod = state?.paymentMethod ?? "card";
-  const fullName = state?.fullName ?? "Customer";
-  const placedAt = state?.placedAt ? new Date(state.placedAt).toLocaleString() : "Just now";
+  if (!state) {
+    return <Navigate to="/plants" replace />;
+  }
+
+  const orderId = state.orderId;
+  const total = state.total;
+  const totalItems = state.totalItems;
+  const paymentMethod = state.paymentMethod;
+  const fullName = state.fullName;
+  const placedAt = state.placedAt ? new Date(state.placedAt).toLocaleString() : "Just now";
 
   const paymentLabel =
     paymentMethod === "upi"
