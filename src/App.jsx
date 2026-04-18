@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import AboutUs from "./components/AboutUs";
 import ProductList from "./components/ProductList";
 import CartItem from "./components/CartItem";
+import Checkout from "./components/Checkout";
+import OrderConfirmation from "./components/OrderConfirmation";
+
+const BackgroundScene = lazy(() => import("./components/BackgroundScene"));
 
 function LandingPage() {
   const [showProductList, setShowProductList] = useState(false);
@@ -54,11 +58,18 @@ function LandingPage() {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/about" element={<AboutUs />} />
-      <Route path="/plants" element={<ProductList />} />
-      <Route path="/cart" element={<CartItem />} />
-    </Routes>
+    <>
+      <Suspense fallback={null}>
+        <BackgroundScene />
+      </Suspense>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/plants" element={<ProductList />} />
+        <Route path="/cart" element={<CartItem />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/confirmation" element={<OrderConfirmation />} />
+      </Routes>
+    </>
   );
 }

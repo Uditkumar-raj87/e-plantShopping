@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./Navbar";
 import {
@@ -11,12 +11,13 @@ import {
 
 export default function CartItem() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
   const totalAmount = useSelector(selectCartItemCount);
   const totalCost = useSelector(selectCartTotal);
 
   const checkout = () => {
-    alert("Coming Soon");
+    navigate("/checkout");
   };
 
   const handleIncrement = (id) => {
