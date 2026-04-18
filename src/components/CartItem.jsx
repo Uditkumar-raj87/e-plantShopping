@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./Navbar";
 import {
-  decreaseQuantity,
-  increaseQuantity,
+  updateQuantity,
   removeItem,
   selectCartItems,
   selectCartItemCount,
@@ -18,6 +17,14 @@ export default function CartItem() {
 
   const checkout = () => {
     alert("Coming Soon");
+  };
+
+  const handleIncrement = (id) => {
+    dispatch(updateQuantity({ id, change: 1 }));
+  };
+
+  const handleDecrement = (id) => {
+    dispatch(updateQuantity({ id, change: -1 }));
   };
 
   return (
@@ -48,14 +55,14 @@ export default function CartItem() {
                     <div className="quantity-row">
                       <button
                         type="button"
-                        onClick={() => dispatch(decreaseQuantity(item.id))}
+                        onClick={() => handleDecrement(item.id)}
                       >
                         -
                       </button>
                       <span>{item.quantity}</span>
                       <button
                         type="button"
-                        onClick={() => dispatch(increaseQuantity(item.id))}
+                        onClick={() => handleIncrement(item.id)}
                       >
                         +
                       </button>

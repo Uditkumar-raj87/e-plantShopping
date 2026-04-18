@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import Navbar from "./Navbar";
-import { addToCart } from "../redux/CartSlice";
+import { addItem } from "../redux/CartSlice";
 
 const PLANTS_BY_CATEGORY = {
   "Air Purifying": [
@@ -141,6 +141,10 @@ export default function ProductList() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
+  const handleAddToCart = (plant) => {
+    dispatch(addItem(plant));
+  };
+
   return (
     <main className="page-shell">
       <Navbar />
@@ -164,7 +168,7 @@ export default function ProductList() {
                     <button
                       type="button"
                       disabled={isAdded}
-                      onClick={() => dispatch(addToCart(plant))}
+                      onClick={() => handleAddToCart(plant)}
                     >
                       {isAdded ? "Added" : "Add to Cart"}
                     </button>

@@ -73,6 +73,9 @@ a {
   place-items: center;
   text-align: center;
   padding: 24px;
+}
+
+.background-image {
   background-image: url("https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1650&q=80");
   background-position: center;
   background-size: cover;
@@ -135,6 +138,10 @@ h1 {
   display: grid;
   place-items: center;
   padding: 26px;
+}
+
+.about-us-container {
+  width: min(760px, 100%);
 }
 
 .about-card {
