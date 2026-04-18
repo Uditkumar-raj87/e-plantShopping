@@ -32,9 +32,15 @@ export default function CartItem() {
       <Navbar />
 
       <section className="cart-page">
-        <h2>Shopping Cart</h2>
-        <p className="cart-meta">Total Plants: {totalAmount}</p>
-        <p className="cart-meta">Grand Total: ${totalCost.toFixed(2)}</p>
+        <div className="section-heading">
+          <p className="section-kicker">Your Basket</p>
+          <h2>Shopping Cart</h2>
+        </div>
+
+        <div className="cart-summary-shell">
+          <p className="cart-meta">Total Plants: {totalAmount}</p>
+          <p className="cart-meta">Grand Total: ${totalCost.toFixed(2)}</p>
+        </div>
 
         {cartItems.length === 0 ? (
           <p className="empty-cart">Your cart is empty.</p>
@@ -50,7 +56,7 @@ export default function CartItem() {
                   <div className="cart-details">
                     <h3>{item.name}</h3>
                     <p>Unit Price: ${item.price.toFixed(2)}</p>
-                    <p>Total Cost: ${itemTotal.toFixed(2)}</p>
+                    <p className="item-total">Total Cost: ${itemTotal.toFixed(2)}</p>
 
                     <div className="quantity-row">
                       <button

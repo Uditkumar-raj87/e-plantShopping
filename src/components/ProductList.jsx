@@ -150,11 +150,21 @@ export default function ProductList() {
       <Navbar />
 
       <section className="product-page">
-        <h2>Our Plants</h2>
+        <div className="section-heading">
+          <p className="section-kicker">Shop Collection</p>
+          <h2>Our Plants</h2>
+          <p>
+            Discover premium indoor plants arranged by lifestyle, care level,
+            and design preference.
+          </p>
+        </div>
 
         {Object.entries(PLANTS_BY_CATEGORY).map(([category, plants]) => (
           <div key={category} className="category-block">
-            <h3>{category}</h3>
+            <div className="category-header">
+              <h3>{category}</h3>
+              <span>{plants.length} options</span>
+            </div>
 
             <div className="plant-grid">
               {plants.map((plant) => {
@@ -164,8 +174,9 @@ export default function ProductList() {
                   <article className="plant-card" key={plant.id}>
                     <img src={plant.image} alt={plant.name} />
                     <h4>{plant.name}</h4>
-                    <p>${plant.price.toFixed(2)}</p>
+                    <p className="price-label">${plant.price.toFixed(2)}</p>
                     <button
+                      className="plant-cta"
                       type="button"
                       disabled={isAdded}
                       onClick={() => handleAddToCart(plant)}

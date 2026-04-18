@@ -7,13 +7,20 @@ export default function Navbar() {
 
   return (
     <header className="navbar">
-      <Link to="/" className="brand">
-        Paradise Nursery
-      </Link>
+      <div className="brand-wrap">
+        <Link to="/" className="brand">
+          Paradise Nursery
+        </Link>
+        <p className="brand-subtitle">Indoor Plant Studio</p>
+      </div>
 
       <nav className="nav-links">
-        <Link to="/">Home</Link>
-        <Link to="/plants">Plants</Link>
+        <Link className="nav-link" to="/">
+          Home
+        </Link>
+        <Link className="nav-link" to="/plants">
+          Plants
+        </Link>
         <Link to="/cart" className="cart-link" aria-label="Shopping cart">
           Cart
           <span className="cart-count">{itemCount}</span>
