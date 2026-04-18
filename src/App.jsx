@@ -37,6 +37,23 @@ function LandingPage() {
   return (
     <section className="landing-page background-image">
       <div className="landing-overlay" />
+      <div className="home-plants-layer" aria-hidden="true">
+        <img
+          className="home-plant plant-left"
+          src="https://images.unsplash.com/photo-1525498128493-380d1990a112?auto=format&fit=crop&w=1000&q=80"
+          alt=""
+        />
+        <img
+          className="home-plant plant-right"
+          src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1000&q=80"
+          alt=""
+        />
+        <img
+          className="home-plant plant-bottom"
+          src="https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1000&q=80"
+          alt=""
+        />
+      </div>
       <div className="landing-content">
         <p className="eyebrow">Curated Botanical Living</p>
         <h1>Paradise Nursery</h1>

@@ -170,8 +170,59 @@ a {
     radial-gradient(circle at 70% 20%, rgba(217, 164, 65, 0.2), transparent 46%);
 }
 
+.home-plants-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.home-plant {
+  position: absolute;
+  --plant-rot: 0deg;
+  --plant-shift-x: 0px;
+  object-fit: cover;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 18px 40px rgba(8, 20, 16, 0.4);
+  filter: saturate(1.08) contrast(1.03);
+  opacity: 0.58;
+  transform: translateX(var(--plant-shift-x)) rotate(var(--plant-rot));
+  animation: plant-float 7s ease-in-out infinite;
+}
+
+.plant-left {
+  left: -34px;
+  top: 110px;
+  width: min(24vw, 280px);
+  height: min(44vh, 350px);
+  --plant-rot: -7deg;
+}
+
+.plant-right {
+  right: -30px;
+  top: 90px;
+  width: min(23vw, 270px);
+  height: min(42vh, 330px);
+  --plant-rot: 8deg;
+  animation-delay: 1s;
+}
+
+.plant-bottom {
+  left: 50%;
+  bottom: -120px;
+  width: min(50vw, 520px);
+  height: min(34vh, 260px);
+  --plant-shift-x: -50%;
+  --plant-rot: -2deg;
+  opacity: 0.42;
+  animation-delay: 0.5s;
+}
+
 .landing-content {
   position: relative;
+  z-index: 3;
   color: #f8f8f0;
   max-width: 860px;
   padding: 36px;
@@ -748,6 +799,18 @@ a:focus-visible {
   }
 }
 
+@keyframes plant-float {
+  0% {
+    transform: translateY(0) rotate(var(--plant-rot, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--plant-rot, 0deg));
+  }
+  100% {
+    transform: translateY(0) rotate(var(--plant-rot, 0deg));
+  }
+}
+
 @media (max-width: 760px) {
   .navbar {
     margin: 10px;
@@ -759,6 +822,32 @@ a:focus-visible {
 
   .landing-content {
     padding: 24px 18px;
+  }
+
+  .home-plant {
+    opacity: 0.38;
+    border-radius: 16px;
+  }
+
+  .plant-left,
+  .plant-right {
+    width: 160px;
+    height: 220px;
+    top: 120px;
+  }
+
+  .plant-left {
+    left: -62px;
+  }
+
+  .plant-right {
+    right: -62px;
+  }
+
+  .plant-bottom {
+    width: 280px;
+    height: 170px;
+    bottom: -70px;
   }
 
   .hero-stats {
