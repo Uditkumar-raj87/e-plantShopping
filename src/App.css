@@ -240,7 +240,7 @@ a {
   right: 3%;
   width: min(48vw, 620px);
   height: min(84vh, 720px);
-  pointer-events: none;
+  pointer-events: auto;
   filter: drop-shadow(0 24px 28px rgba(3, 18, 12, 0.28));
 }
 

@@ -30,6 +30,13 @@ function WaterMist({ active }) {
     particles.current.forEach((particle) => {
       particle.y -= delta * 0.38;
       particle.life += delta * 0.8;
+      if (particle.life > 1) {
+        particle.y = 0.85;
+        particle.life = 0;
+      }
+    });
+    particles.current.forEach((particle, index) => {
+      pointsRef.current.geometry.attributes.position.setXYZ(index, particle.x, particle.y, particle.z);
     });
     pointsRef.current.geometry.attributes.position.needsUpdate = true;
   });
