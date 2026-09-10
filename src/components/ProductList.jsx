@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Navbar from "./Navbar";
 import { addItem } from "../redux/CartSlice";
-import PlantInspectorModal from "./3d/PlantInspectorModal";
+const PlantInspectorModal = lazy(() => import("./3d/PlantInspectorModal"));
 
 const PLANTS_BY_CATEGORY = {
   "Air Purifying": [
@@ -224,7 +224,9 @@ export default function ProductList() {
           </div>
           ))}
       </section>
-      <PlantInspectorModal plant={selectedPlant} onClose={() => setSelectedPlant(null)} />
+      <Suspense fallback={null}>
+        <PlantInspectorModal plant={selectedPlant} onClose={() => setSelectedPlant(null)} />
+      </Suspense>
     </main>
   );
 }

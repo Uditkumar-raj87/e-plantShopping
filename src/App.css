@@ -1136,11 +1136,6 @@ a:focus-visible {
     flex-direction: column;
     align-items: flex-start;
   }
-}}
-
-.order-head h3 {
-  margin: 0;
-  font-family: "Fraunces", serif;
 }
 
 button:focus-visible,
