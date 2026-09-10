@@ -50,8 +50,10 @@ export default function CartItem() {
             {cartItems.map((item) => {
               const itemTotal = item.quantity * item.price;
 
+              const itemKey = item.cartKey || item.id;
+
               return (
-                <article key={item.id} className="cart-card">
+                <article key={itemKey} className="cart-card">
                   <img src={item.image} alt={item.name} />
 
                   <div className="cart-details">
@@ -62,14 +64,14 @@ export default function CartItem() {
                     <div className="quantity-row">
                       <button
                         type="button"
-                        onClick={() => handleDecrement(item.id)}
+                        onClick={() => handleDecrement(itemKey)}
                       >
                         -
                       </button>
                       <span>{item.quantity}</span>
                       <button
                         type="button"
-                        onClick={() => handleIncrement(item.id)}
+                        onClick={() => handleIncrement(itemKey)}
                       >
                         +
                       </button>
@@ -78,7 +80,7 @@ export default function CartItem() {
                     <button
                       className="delete-btn"
                       type="button"
-                      onClick={() => dispatch(removeItem(item.id))}
+                      onClick={() => dispatch(removeItem(itemKey))}
                     >
                       Delete
                     </button>

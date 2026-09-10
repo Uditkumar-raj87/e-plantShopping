@@ -31,7 +31,7 @@ function Leaf({ leaf, index }) {
       scale={leaf.scale}
     >
       <sphereGeometry args={[1, 20, 12]} />
-      <meshStandardMaterial color={index % 3 === 0 ? "#8ebd77" : "#477d59"} roughness={0.72} />
+      <meshStandardMaterial color={index % 3 === 0 ? "#4e8a3e" : "#2d5a27"} roughness={0.6} metalness={0.05} />
     </mesh>
   );
 }

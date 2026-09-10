@@ -1,7 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const getInitialItems = () => {
+  if (typeof window === "undefined") return {};
+
+  try {
+    return JSON.parse(window.localStorage.getItem("pn_cart") || "{}");
+  } catch (_error) {
+    return {};
+  }
+};
+
 const initialState = {
-  items: {}
+  items: getInitialItems()
 };
 
 const cartSlice = createSlice({
@@ -10,20 +20,23 @@ const cartSlice = createSlice({
   reducers: {
     addItem: (state, action) => {
       const product = action.payload;
-      const existing = state.items[product.id];
+      const itemKey = product.cartKey || product.id;
+      const existing = state.items[itemKey];
 
       if (existing) {
         existing.quantity += 1;
       } else {
-        state.items[product.id] = {
+        state.items[itemKey] = {
           ...product,
+          cartKey: itemKey,
           quantity: 1
         };
       }
     },
     updateQuantity: (state, action) => {
       const { id, change } = action.payload;
-      const item = state.items[id];
+      const itemKey = state.items[id] ? id : Object.keys(state.items).find((key) => state.items[key].id === id);
+      const item = itemKey ? state.items[itemKey] : null;
       if (!item) {
         return;
       }
@@ -33,11 +46,14 @@ const cartSlice = createSlice({
       if (nextQuantity > 0) {
         item.quantity = nextQuantity;
       } else {
-        delete state.items[id];
+        delete state.items[itemKey];
       }
     },
     removeItem: (state, action) => {
-      delete state.items[action.payload];
+      const itemKey = state.items[action.payload]
+        ? action.payload
+        : Object.keys(state.items).find((key) => state.items[key].id === action.payload);
+      if (itemKey) delete state.items[itemKey];
     },
     clearCart: (state) => {
       state.items = {};

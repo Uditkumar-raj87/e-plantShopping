@@ -201,6 +201,11 @@ export default function ProductList() {
                     <img src={plant.image} alt={plant.name} />
                     <h4>{plant.name}</h4>
                     <p className="price-label">${plant.price.toFixed(2)} <span>- ₹{Math.round(plant.price * 84).toLocaleString("en-IN")}</span></p>
+                    <div className="care-badges" aria-label={`${plant.name} care details`}>
+                      <span>Water weekly</span>
+                      <span>Bright indirect</span>
+                      <span>Pet friendly</span>
+                    </div>
                     <button className="inspect-link" type="button" onClick={() => setSelectedPlant(plant)}>
                       Inspect in 3D
                     </button>

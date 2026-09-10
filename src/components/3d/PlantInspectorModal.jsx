@@ -60,21 +60,26 @@ export default function PlantInspectorModal({ plant, onClose }) {
 
   if (!plant) return null;
 
-  const addPlant = () => dispatch(addItem(plant));
+  const selectedPot = POT_OPTIONS.find((option) => option.color === potColor);
+  const addPlant = () => dispatch(addItem({
+    ...plant,
+    pot: selectedPot.name,
+    cartKey: `${plant.id}-${selectedPot.name.toLowerCase().replaceAll(" ", "-")}`
+  }));
 
   return (
     <div className="inspector-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
       <section className="inspector-modal" role="dialog" aria-modal="true" aria-labelledby="inspector-title">
         <button type="button" className="inspector-close" onClick={onClose} aria-label="Close 3D inspector">x</button>
         <div className={`inspector-canvas ${nightMode ? "is-night" : ""}`}>
-          <Canvas shadows dpr={[1, 1.75]} camera={{ position: [0, 0.8, 6], fov: 42 }}>
+          <Canvas shadows dpr={[1, 1.5]} gl={{ powerPreference: "high-performance" }} camera={{ position: [0, 0.8, 6], fov: 42 }}>
             <ambientLight intensity={nightMode ? 0.25 : 1.1} color={nightMode ? "#819ad2" : "#fff3d4"} />
             <directionalLight position={[3, 4, 3]} intensity={nightMode ? 0.8 : 2.8} color={nightMode ? "#9eafff" : "#fff0c4"} castShadow />
             <ProceduralPlant potColor={potColor} />
             <WaterMist active={watered} />
             <ContactShadows position={[0, -1.55, 0]} opacity={0.4} scale={4} blur={2.5} far={4} />
             <Environment preset="studio" />
-            <OrbitControls minDistance={4} maxDistance={8} minPolarAngle={Math.PI / 3.5} maxPolarAngle={Math.PI / 1.65} />
+            <OrbitControls minDistance={2.5} maxDistance={6} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 2.1} />
           </Canvas>
         </div>
         <div className="inspector-details">

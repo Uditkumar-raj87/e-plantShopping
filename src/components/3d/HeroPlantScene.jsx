@@ -1,4 +1,4 @@
-import { Environment, OrbitControls, ContactShadows } from "@react-three/drei";
+import { Environment, OrbitControls, ContactShadows, Html } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import ProceduralPlant from "./ProceduralPlant";
@@ -21,11 +21,19 @@ function HeroPlant() {
   );
 }
 
+function PlantSkeletonLoader() {
+  return (
+    <Html center>
+      <div className="plant-skeleton-loader" aria-label="Loading 3D plant" />
+    </Html>
+  );
+}
+
 export default function HeroPlantScene() {
   return (
     <div className="hero-plant-scene" aria-label="Interactive 3D houseplant">
-      <Canvas shadows dpr={[1, 1.75]} camera={{ position: [0, 0.8, 7], fov: 38 }}>
-        <Suspense fallback={null}>
+      <Canvas shadows dpr={[1, 1.5]} gl={{ powerPreference: "high-performance" }} camera={{ position: [0, 0.8, 7], fov: 38 }}>
+        <Suspense fallback={<PlantSkeletonLoader />}>
           <ambientLight intensity={1.2} color="#f7f1dc" />
           <directionalLight position={[3, 5, 4]} intensity={3.2} color="#fff1c7" castShadow shadow-mapSize={[1024, 1024]} />
           <pointLight position={[-3, 1, 3]} intensity={1.5} color="#9fd4b3" />

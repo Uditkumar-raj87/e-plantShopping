@@ -7,11 +7,11 @@ import Checkout from "./components/Checkout";
 import OrderConfirmation from "./components/OrderConfirmation";
 import AuthPage from "./components/AuthPage";
 import OrderHistory from "./components/OrderHistory";
-import HeroPlantScene from "./components/3d/HeroPlantScene";
-import PlantInspectorModal from "./components/3d/PlantInspectorModal";
 import { useAuth } from "./lib/AuthContext";
 
 const BackgroundScene = lazy(() => import("./components/BackgroundScene"));
+const HeroPlantScene = lazy(() => import("./components/3d/HeroPlantScene"));
+const PlantInspectorModal = lazy(() => import("./components/3d/PlantInspectorModal"));
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useAuth();

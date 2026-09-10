@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCartItemCount } from "../redux/CartSlice";
 import { useAuth } from "../lib/AuthContext";
+import { useState } from "react";
+import CartDrawer from "./CartDrawer";
 
 export default function Navbar() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const itemCount = useSelector(selectCartItemCount);
   const { isAuthenticated, user, logout } = useAuth();
 
@@ -23,10 +26,10 @@ export default function Navbar() {
         <Link className="nav-link" to="/plants">
           Plants
         </Link>
-        <Link to="/cart" className="cart-link" aria-label="Shopping cart">
+        <button type="button" className="cart-link cart-button" aria-label="Shopping cart" onClick={() => setDrawerOpen(true)}>
           Cart
           <span className="cart-count">{itemCount}</span>
-        </Link>
+        </button>
         {isAuthenticated ? (
           <>
             <Link className="nav-link" to="/orders">
@@ -42,6 +45,7 @@ export default function Navbar() {
           </Link>
         )}
       </nav>
+      <CartDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </header>
   );
 }

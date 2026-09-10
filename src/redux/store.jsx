@@ -6,3 +6,9 @@ export const store = configureStore({
     cart: cartReducer
   }
 });
+
+if (typeof window !== "undefined") {
+  store.subscribe(() => {
+    window.localStorage.setItem("pn_cart", JSON.stringify(store.getState().cart.items));
+  });
+}
