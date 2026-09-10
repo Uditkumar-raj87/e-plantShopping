@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Navbar from "./Navbar";
 import { addItem } from "../redux/CartSlice";
+import PlantInspectorModal from "./3d/PlantInspectorModal";
 
 const PLANTS_BY_CATEGORY = {
   "Air Purifying": [
@@ -140,6 +142,8 @@ const PLANTS_BY_CATEGORY = {
 export default function ProductList() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+  const [activeCategory, setActiveCategory] = useState("All Plants");
+  const [selectedPlant, setSelectedPlant] = useState(null);
 
   const handleAddToCart = (plant) => {
     dispatch(addItem(plant));
@@ -159,7 +163,29 @@ export default function ProductList() {
           </p>
         </div>
 
-        {Object.entries(PLANTS_BY_CATEGORY).map(([category, plants]) => (
+        <div className="category-tabs" role="tablist" aria-label="Plant categories">
+          {["All Plants", "Air Purifying", "Aromatic & Fragrant", "Low Maintenance & Succulents"].map((category) => (
+            <button
+              key={category}
+              type="button"
+              role="tab"
+              aria-selected={activeCategory === category}
+              className={activeCategory === category ? "active" : ""}
+              onClick={() => setActiveCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {Object.entries(PLANTS_BY_CATEGORY)
+          .filter(([category]) =>
+            activeCategory === "All Plants" ||
+            category === activeCategory ||
+            (activeCategory === "Aromatic & Fragrant" && category === "Pet Friendly") ||
+            (activeCategory === "Low Maintenance & Succulents" && category === "Succulents")
+          )
+          .map(([category, plants]) => (
           <div key={category} className="category-block">
             <div className="category-header">
               <h3>{category}</h3>
@@ -174,7 +200,10 @@ export default function ProductList() {
                   <article className="plant-card" key={plant.id}>
                     <img src={plant.image} alt={plant.name} />
                     <h4>{plant.name}</h4>
-                    <p className="price-label">${plant.price.toFixed(2)}</p>
+                    <p className="price-label">${plant.price.toFixed(2)} <span>- ₹{Math.round(plant.price * 84).toLocaleString("en-IN")}</span></p>
+                    <button className="inspect-link" type="button" onClick={() => setSelectedPlant(plant)}>
+                      Inspect in 3D
+                    </button>
                     <button
                       className="plant-cta"
                       type="button"
@@ -188,8 +217,9 @@ export default function ProductList() {
               })}
             </div>
           </div>
-        ))}
+          ))}
       </section>
+      <PlantInspectorModal plant={selectedPlant} onClose={() => setSelectedPlant(null)} />
     </main>
   );
 }

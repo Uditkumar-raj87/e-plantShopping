@@ -7,6 +7,8 @@ import Checkout from "./components/Checkout";
 import OrderConfirmation from "./components/OrderConfirmation";
 import AuthPage from "./components/AuthPage";
 import OrderHistory from "./components/OrderHistory";
+import HeroPlantScene from "./components/3d/HeroPlantScene";
+import PlantInspectorModal from "./components/3d/PlantInspectorModal";
 import { useAuth } from "./lib/AuthContext";
 
 const BackgroundScene = lazy(() => import("./components/BackgroundScene"));
@@ -27,7 +29,15 @@ function ProtectedRoute({ children }) {
 
 function LandingPage() {
   const [showProductList, setShowProductList] = useState(false);
+  const [showInspector, setShowInspector] = useState(false);
   const navigate = useNavigate();
+  const featuredPlant = {
+    id: "ap-1",
+    name: "Snake Plant",
+    price: 25,
+    image:
+      "https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=600&q=80"
+  };
 
   const handleGetStartedClick = () => {
     setShowProductList(true);
@@ -54,6 +64,7 @@ function LandingPage() {
           alt=""
         />
       </div>
+      <HeroPlantScene />
       <div className="landing-content">
         <p className="eyebrow">Curated Botanical Living</p>
         <h1>Paradise Nursery</h1>
@@ -68,6 +79,9 @@ function LandingPage() {
             onClick={handleGetStartedClick}
           >
             Get Started
+          </button>
+          <button type="button" className="outline-button hero-inspect-button" onClick={() => setShowInspector(true)}>
+            Inspect in 3D
           </button>
         </div>
         <div className="hero-stats">
@@ -86,6 +100,7 @@ function LandingPage() {
         </div>
         {showProductList && <p className="subtitle">Loading product listing...</p>}
       </div>
+      <PlantInspectorModal plant={showInspector ? featuredPlant : null} onClose={() => setShowInspector(false)} />
     </section>
   );
 }

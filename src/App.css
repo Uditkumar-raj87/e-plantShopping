@@ -233,6 +233,46 @@ a {
   animation: rise-in 0.75s ease;
 }
 
+.hero-plant-scene {
+  position: absolute;
+  z-index: 2;
+  top: 8%;
+  right: 3%;
+  width: min(48vw, 620px);
+  height: min(84vh, 720px);
+  pointer-events: none;
+  filter: drop-shadow(0 24px 28px rgba(3, 18, 12, 0.28));
+}
+
+.hero-plant-scene canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.plant-annotation {
+  display: grid;
+  gap: 2px;
+  min-width: 130px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 10px;
+  background: rgba(9, 31, 22, 0.72);
+  color: #f8f3df;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  font: 500 0.72rem/1.25 "Manrope", sans-serif;
+  text-align: left;
+  backdrop-filter: blur(8px);
+}
+
+.plant-annotation strong {
+  color: #e8bd62;
+  font-size: 0.76rem;
+}
+
+.plant-annotation span {
+  color: rgba(248, 243, 223, 0.76);
+}
+
 .eyebrow {
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -266,6 +306,13 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
+}
+
+.hero-inspect-button {
+  margin-left: 10px;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff9e9;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .stat-chip {
@@ -453,6 +500,165 @@ h1 {
   margin-bottom: 12px;
   color: var(--accent-strong);
   font-weight: 700;
+}
+
+.price-label span {
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 8px;
+}
+
+.category-tabs button,
+.inspect-link {
+  border: 1px solid rgba(33, 89, 75, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--accent-strong);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.category-tabs button {
+  padding: 8px 12px;
+}
+
+.category-tabs button.active,
+.category-tabs button:hover,
+.inspect-link:hover {
+  background: var(--accent);
+  color: #f7fff3;
+}
+
+.inspect-link {
+  margin: 0 14px 8px;
+  padding: 7px 10px;
+}
+
+.inspector-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(7, 21, 15, 0.64);
+  backdrop-filter: blur(8px);
+}
+
+.inspector-modal {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(300px, 1.15fr) minmax(270px, 0.85fr);
+  width: min(920px, 100%);
+  max-height: min(720px, 92vh);
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 20px;
+  background: #f4f1e9;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
+  animation: rise-in 0.28s ease;
+}
+
+.inspector-close {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: rgba(7, 21, 15, 0.65);
+  color: #fff;
+  cursor: pointer;
+}
+
+.inspector-canvas {
+  min-height: 480px;
+  background: radial-gradient(circle at 50% 30%, #f2e9cd, #bfd4bf 74%);
+}
+
+.inspector-canvas.is-night {
+  background: radial-gradient(circle at 50% 30%, #28365e, #101b31 74%);
+}
+
+.inspector-details {
+  align-self: center;
+  padding: 34px 28px;
+}
+
+.inspector-details h2 {
+  margin: 5px 0 8px;
+  font-family: "Fraunces", serif;
+  font-size: 2rem;
+}
+
+.inspector-details > p:not(.section-kicker) {
+  color: var(--ink-soft);
+}
+
+.inspector-control {
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pot-options {
+  display: grid;
+  gap: 6px;
+}
+
+.pot-options button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 9px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.pot-options button.selected,
+.pot-options button:hover {
+  border-color: rgba(33, 89, 75, 0.2);
+  background: rgba(33, 89, 75, 0.08);
+}
+
+.pot-swatch {
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+}
+
+.inspector-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.inspector-actions .outline-button,
+.inspector-actions .cta-button {
+  padding: 9px 11px;
+  font-size: 0.78rem;
 }
 
 .plant-cta {
@@ -821,7 +1027,38 @@ a:focus-visible {
   }
 
   .landing-content {
+    margin-top: 22vh;
     padding: 24px 18px;
+  }
+
+  .hero-plant-scene {
+    top: 5%;
+    right: 50%;
+    width: min(92vw, 480px);
+    height: 48vh;
+    transform: translateX(50%);
+    opacity: 0.9;
+  }
+
+  .hero-inspect-button {
+    margin: 10px 0 0;
+  }
+
+  .inspector-backdrop {
+    padding: 10px;
+  }
+
+  .inspector-modal {
+    grid-template-columns: 1fr;
+    max-height: 96vh;
+  }
+
+  .inspector-canvas {
+    min-height: 360px;
+  }
+
+  .inspector-details {
+    padding: 24px 20px 20px;
   }
 
   .home-plant {
